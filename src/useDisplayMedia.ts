@@ -5,11 +5,16 @@ export default function useDisplayMedia(constraints: MediaStreamConstraints) {
   const [error, setError] = useState();
   const [state, setState] = useState("pending");
 
+  function stopDisplay() {
+    stream?.getTracks().forEach((track) => track.stop());
+    setStream(null);
+  }
+
   function startDisplay() {
     let canceled = false;
 
     setState("pending");
-    navigator.mediaDevices.getDisplayMedia(constraints).then(
+    return navigator.mediaDevices.getDisplayMedia(constraints).then(
       (stream) => {
         if (!canceled) {
           setState("resolved");
@@ -26,11 +31,6 @@ export default function useDisplayMedia(constraints: MediaStreamConstraints) {
         }
       }
     );
-  }
-
-  function stopDisplay() {
-    stream?.getTracks().forEach((track) => track.stop());
-    setStream(null);
   }
 
   return { error, state, stream, startDisplay, stopDisplay };

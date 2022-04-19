@@ -27,7 +27,6 @@ export default function LivestreamPreview({ stream }: Props) {
       autoPlay={true}
       muted={true}
       controls
-      style={{ objectFit: "cover" }}
     />
   );
 }

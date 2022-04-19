@@ -7,7 +7,7 @@ export default function useUserMedia(constraints: MediaStreamConstraints) {
 
   function startCamera() {
     setState("pending");
-    navigator.mediaDevices.getUserMedia(constraints).then(
+    return navigator.mediaDevices.getUserMedia(constraints).then(
       (stream) => {
         setState("resolved");
         console.log(stream);
